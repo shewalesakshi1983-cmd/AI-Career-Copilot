@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>📜 Resume Analysis History</h2>
+
+<p>
+View your previous resume analyses, skill gaps,
+roadmaps and interview preparation reports.
+</p> 
+
+<!-- 🔴 DELETE ALL HISTORY -->
+<a href="/delete_all_history"
+   onclick="return confirm('Delete all history?')"
+   style="
+      background:#3b82f6;
+      color:white;
+      padding:10px 15px;
+      border-radius:8px;
+      text-decoration:none;
+      display:inline-block;
+      margin-bottom:20px;
+   ">
+   🗑 Delete All History
+</a>
+
+<hr>
+
+<!-- 🔵 HISTORY LIST -->
+{% if not reports %}
+
+<div class="card">
+    <h3>No Reports Yet 📄</h3>
+
+    <p>
+        Upload and analyze your first resume to
+        see history here.
+    </p>
+</div>
+
+{% endif %} 
+
+{% for r in reports %}
+
+<div class="card" style="margin-bottom:20px; padding:15px; border:1px solid #ddd; border-radius:10px;">
+
+    <p><strong>Resume Preview:</strong></p>
+    <p>{{ r.resume[:200] }}...</p> 
+
+    <hr>
+
+    <h3>Skills</h3>
+    <ul>
+        {% for s in r.skills %}
+        <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Missing Skills</h3>
+    <ul>
+        {% for s in r.missing_skills %}
+        <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Roadmap</h3>
+    <ul>
+        {% for s in r.roadmap %}
+        <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>💡 Resume Tips</h4>
+    <ul>
+       {% for tip in r.resume_tips %}
+       <li>{{ tip }}</li>
+       {% endfor %}
+    </ul>
+
+    <h3>Interview Questions</h3>
+    <ul>
+        {% for s in r.interview_questions %}
+        <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- 🔴 DELETE SINGLE -->
+    <a href="/delete_history/{{ r.id }}"
+       onclick="return confirm('Delete this report?')"
+       style="
+          background:#ef4444;
+          color:white;
+          padding:8px 12px;
+          border-radius:6px;
+          text-decoration:none;
+          display:inline-block;
+          margin-top:10px;
+       ">
+       🗑 Delete
+    </a>
+
+</div>
+
+{% endfor %}
+
+{% endblock %} 
+

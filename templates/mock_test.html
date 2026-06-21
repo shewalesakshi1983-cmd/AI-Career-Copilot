@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h2>📝 Mock Test</h2>
+
+    <form action="{{ url_for('submit_test') }}" method="POST">
+
+        {% for q in questions %}
+
+        <div style="margin-bottom:20px;">
+
+            <h4>{{ q.question }}</h4>
+
+            {% set question_index = loop.index0 %}
+
+            {% for option in q.options %}
+
+            <label>
+                <input type="radio"
+                       name="q{{ question_index }}"
+                       value="{{ option }}"
+                       required>
+                {{ option }}
+            </label>
+            <br>
+
+            {% endfor %}
+
+        </div>
+
+        <hr>
+
+        {% endfor %}
+
+        <button type="submit" class="download-btn">
+            Submit Test
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}  

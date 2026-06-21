@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %} 
+
+<div class="auth-container">
+    <div class="auth-card"> 
+
+       <h2>🙌 Welcome Back</h2>   
+
+        <p class="sub-text">
+            Sign in to continue your AI Career Copilot journey.
+        </p>
+
+        <form method="POST">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="password" name="password" placeholder="Enter your Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="auth-links">
+            <a href="/forgot-password">Forgot Password?</a>
+        </div>
+
+        <p class="switch-auth">
+            Don't have an account?
+            <a href="/signup">Create Account</a> 
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}  

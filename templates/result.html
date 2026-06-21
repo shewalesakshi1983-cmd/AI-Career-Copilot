@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card result-card">
+
+    <h2>🎉 Test Result</h2>
+
+    <div class="score-circle">
+        {{ score }}/{{ total }}
+    </div>
+
+    <div class="result-actions">
+
+        <a href="{{ url_for('mock_test') }}" class="download-btn">
+            Try Again
+        </a>
+
+        <a href="{{ url_for('dashboard') }}" class="download-btn">
+            Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %} 

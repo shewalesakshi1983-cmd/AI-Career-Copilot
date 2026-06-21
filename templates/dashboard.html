@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🚀 AI Copilot</h2>
+
+      <a href="/dashboard">🏠 Dashboard</a>
+      <a href="/dashboard">📄 Resume Analyzer</a>
+      <a href="/chatbot">🤖 AI Assistant</a>
+      <a href="/mock_test">📝 Mock Test</a>
+      <a href="/history">📜 History</a>
+      <a href="/logout">🚪 Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <!-- Hero Section -->
+        <div class="hero-card">
+           <h1>🚀 AI Career Copilot</h1>
+
+           <p>
+            Analyze resumes, match job descriptions, discover skill gaps,
+            generate career roadmaps and practice placement mock tests.
+           </p> 
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <h2>{{ result.get("ats_score",0) if result else 0 }}%</h2>
+                <p>ATS Score</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>{{ result.get("skills",[])|length if result else 0 }}</h2>
+                <p>Skills Found</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>{{ result.get("missing_skills",[])|length if result else 0 }}</h2>
+                <p>Missing Skills</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>{{ result.get("match_score",0) if result else 0 }}%</h2>
+                <p>JD Match</p>
+            </div>
+
+        </div>
+
+        <!-- Resume Analyzer -->
+        <div class="card">
+
+            <h3>📄 Resume Analyzer</h3>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <textarea
+                    name="resume"
+                    placeholder="Paste your resume (optional)"
+                ></textarea>
+
+                <p style="margin-top:15px;">
+                    📁 OR Upload Resume:
+                </p>
+
+                <input
+             type="file"
+             name="file"
+             accept=".pdf,.docx,.jpg,.jpeg,.png">
+
+                <input
+                    type="text"
+                    name="role"
+                    placeholder="🎯 Target Role (Python Developer, Data Analyst, Java Developer...)" 
+                >
+
+                <textarea
+                    name="job_description"
+                    placeholder="📝 Paste Job Description here..."
+                ></textarea>
+
+                <button type="submit">
+                    🚀 Analyze Resume
+                </button>
+
+            </form>
+
+        </div>
+
+        {% if result and result.get("error") %}
+
+        <div class="card">
+            <h3 style="color:red;">
+                ❌ {{ result.get("error") }}
+            </h3>
+        </div>
+
+        {% endif %}
+
+        {% if result and not result.get("error") %}
+
+        <!-- ATS Score -->
+        <div class="ats-card">
+
+            <h3>📈 ATS SCORE</h3>
+
+            <div class="score-circle">
+                {{ result.get("ats_score",0) }}%
+            </div>
+
+            <div class="bar">
+                <div
+                    class="fill"
+                    style="width: {{ result.get('ats_score',0) }}%"
+                ></div>
+            </div>
+
+        </div>
+
+        <!-- Skills + Missing Keywords -->
+        <div class="result-grid">
+
+            <div class="card">
+
+                <h3>💡 Skills Found</h3>
+
+                <div class="tags">
+                    {% for i in result.get("skills", []) %}
+                    <span class="tag">{{ i }}</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🚫 Missing Keywords</h3>
+
+                <div class="tags">
+                    {% for i in result.get("missing_keywords", []) %}
+                    <span class="tag bad">{{ i }}</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- JD Match + Roadmap -->
+        <div class="result-grid">
+
+            <div class="card">
+
+                <h3>🎯 Job Description Match</h3>
+
+                <div class="score-circle">
+                    {{ result.get("match_score",0) }}%
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🛤 Career Roadmap</h3>
+
+                <ul class="fancy-list">
+                    {% for i in result.get("roadmap", []) %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- Interview Questions -->
+        <div class="card">
+
+            <h3>🧠 Interview Questions</h3>
+
+            <ul class="fancy-list">
+                {% for i in result.get("interview_questions", []) %}
+                <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+        <!-- Resume Tips -->
+        <div class="card">
+
+            <h3>✨ AI Resume Tips</h3>
+
+            <ul class="fancy-list">
+                {% for i in result.get("resume_tips", []) %}
+                <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!----Mock Test----->
+        <a href="/mock_test" class="download-btn">
+           📝 Start Mock Test
+        </a>
+        <br><br>
+
+        <!-- Download Button -->
+        <a href="/download_report" class="download-btn">
+            📄 Download PDF Report
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}  

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2>🤖 AI Career Assistant</h2>
+
+        <p class="sub-text">
+            Ask anything about resume, skills, placements and interviews.
+        </p> 
+
+        <form method="POST">
+
+            <textarea
+                name="message"
+                rows="6" 
+                placeholder="Ask career, resume, skills or interview related questions..." 
+                required>
+            </textarea>
+
+            <button type="submit">
+                Ask AI
+            </button>
+
+        </form>
+
+        {% if reply %}
+
+        <div class="result-box">
+
+            <h3>💡 AI Response</h3>
+
+            <div class="ai-response">
+                {{ reply }}
+            </div> 
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}  

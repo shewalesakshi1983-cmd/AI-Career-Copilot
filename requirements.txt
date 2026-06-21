@@ -1,0 +1,10 @@
+Flask
+PyPDF2
+python-docx
+groq
+Pillow
+pytesseract
+reportlab
+SQLAlchemy
+pymysql 
+python-dotenv 

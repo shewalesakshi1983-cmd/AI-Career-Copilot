@@ -17,8 +17,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv() 
-print("SECRET_KEY =", os.getenv("SECRET_KEY"))
-print("GROQ_API_KEY =", os.getenv("GROQ_API_KEY"))  
+  
 
 # Tesseract-OCR 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" 
